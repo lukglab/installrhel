@@ -15,61 +15,6 @@ export API_PORT=${API_PORT:="8443"}
 export EORG_USER=${EORG_USER}
 export EORG_PASSWORD=${EORG_PASSWORD}
 
-## Make the script interactive to set the variables
-if [ "$INTERACTIVE" = "true" ]; then
-	read -rp "Is your system registered and attached to the correct pool?: (Y/N) " choice;
-        if [ "$choice" == "N" ] || [ "$choice" == "n" ] ; then
-                echo "Users to need run the following command before this script:"
-                echo "$> subscription-manager register"
-                echo "$> subscription-manager attach --pool=POOLID"
-                echo "$> subscription-manager repos --disable=\"*\""
-                exit 1;
-        fi
-
-
-
-	read -rp "Domain to use: ($DOMAIN): " choice;
-	if [ "$choice" != "" ] ; then
-		export DOMAIN="$choice";
-	fi
-
-	read -rp "Username: ($USERNAME): " choice;
-	if [ "$choice" != "" ] ; then
-		export USERNAME="$choice";
-	fi
-
-	read -rp "Password: ($PASSWORD): " choice;
-	if [ "$choice" != "" ] ; then
-		export PASSWORD="$choice";
-	fi
-
-	read -rp "OpenShift Version: ($VERSION): " choice;
-	if [ "$choice" != "" ] ; then
-		export VERSION="$choice";
-	fi
-	read -rp "IP: ($IP): " choice;
-	if [ "$choice" != "" ] ; then
-		export IP="$choice";
-	fi
-
-	read -rp "API Port: ($API_PORT): " choice;
-	if [ "$choice" != "" ] ; then
-		export API_PORT="$choice";
-	fi 
-
-	read -rp "Red Hat Username: ($EORG_USER): " choice;
-	if [ "$choice" != "" ] ; then
-		export EORG_USER="$choice";
-	fi 
-
-	read -rp "Red Hat Password: ($EORG_PASSWORD): " choice;
-	if [ "$choice" != "" ] ; then
-		export EORG_PASSWORD="$choice";
-	fi 
-	echo
-
-fi
-
 echo "******"
 echo "* Your domain is $DOMAIN "
 echo "* Your IP is $IP "
@@ -86,9 +31,9 @@ echo "******"
 
 #install epel
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-subscription-manager repos --enable "rhel-7-server-rpms" --enable "rhel-7-server-extras-rpms" --enable "rhel-7-fast-datapath-rpms" --enable "rhel-7-server-ose-3.11-rpms"
-subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
-subscription-manager repos --enable rhel-7-server-ansible-2.6-rpms
+#subscription-manager repos --enable "rhel-7-server-rpms" --enable "rhel-7-server-extras-rpms" --enable "rhel-7-fast-datapath-rpms" --enable "rhel-7-server-ose-3.11-rpms"
+#subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+#subscription-manager repos --enable rhel-7-server-ansible-2.6-rpms
 
 
 # install updates
